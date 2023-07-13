@@ -1,8 +1,11 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import { HiSearch, HiBell, HiChat } from "react-icons/hi";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
+  const { loginWithRedirect } = useAuth0();
   return (
     <div className="flex gap-3 md:gap-2 items-center p-6">
       <Image
@@ -27,13 +30,25 @@ const Header = () => {
       <HiSearch className="text-[25px] text-gray-500 md:hidden" />
       <HiBell className="text-[40px] text-gray-500 cursor-pointer" />
       <HiChat className="text-[40px] text-gray-500 cursor-pointer" />
-      <Image
+      {/* <Image
         src="/person.png"
         alt="avatar"
         width={50}
         height={50}
         className="hover:bg-gray-300 p-2 rounded-full cursor-pointer"
-      />
+      /> */}
+      <button
+        className="font-semibold p-2 rounded-full px-4"
+        onClick={() => {
+          try {
+            loginWithRedirect();
+          } catch (e) {
+            console.log(e);
+          }
+        }}
+      >
+        Login
+      </button>
     </div>
   );
 };
